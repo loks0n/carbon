@@ -1,0 +1,24 @@
+# Carbon Kernel Builder
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    bc \
+    bison \
+    flex \
+    libelf-dev \
+    libssl-dev \
+    curl \
+    xz-utils \
+    ca-certificates \
+    lz4 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /build
+
+COPY kernel-config.sh /build/
+COPY docker-entrypoint.sh /build/
+
+RUN chmod +x /build/*.sh
+
+ENTRYPOINT ["/build/docker-entrypoint.sh"]

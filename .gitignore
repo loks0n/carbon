@@ -1,0 +1,4 @@
+/target
+/.cache
+disk.raw
+*.raw
